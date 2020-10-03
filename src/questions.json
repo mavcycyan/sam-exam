@@ -1,0 +1,166 @@
+{
+  "steps": [
+    {
+      "id": "step1",
+      "question": "Сколько будет 2 + 2 ?",
+      "answers": [
+        {
+          "id": "one1",
+          "text": "5"
+        },
+        {
+          "id": "one2",
+          "text": "4"
+        },
+        {
+          "id": "one3",
+          "text": "Я не знаю!"
+        }
+      ],
+      "correct": "one2",
+      "points" : "2",
+      "type" : "single"
+    },
+    {
+      "id": "step2",
+      "question": "Сколько будет 3 + 6 ?",
+      "answers": [
+        {
+          "id": "two1",
+          "text": "9"
+        },
+        {
+          "id": "two2",
+          "text": "10"
+        },
+        {
+          "id": "two3",
+          "text": "Я не знаю!"
+        }
+      ],
+      "correct": "two1",
+      "points" : "2",
+      "type" : "single"
+    },
+    {
+      "id": "step3",
+      "question": "Какие месяцы существуют ?",
+      "answers": [
+        {
+          "id": "three1",
+          "text": "Март"
+        },
+        {
+          "id": "three2",
+          "text": "Осень"
+        },
+        {
+          "id": "three3",
+          "text": "Апрель"
+        },
+        {
+          "id": "three4",
+          "text": "Пулеметъ"
+        }
+      ],
+      "correct":  ["three1", "three3"],
+      "points" : "2",
+      "type" : "multiple"
+    },
+    {
+      "id": "step4",
+      "question": "Отсортируйте с порядке убывания",
+      "answers": [
+        {
+          "id": "four1",
+          "text": "10"
+        },
+        {
+          "id": "four2",
+          "text": "7"
+        },
+        {
+          "id": "four3",
+          "text": "8"
+        },
+        {
+          "id": "four4",
+          "text": "9"
+        },
+        {
+          "id": "four5",
+          "text": "7"
+        }
+      ],
+      "correct": ["four1", "four4", "four3", "four2", "four5"],
+      "points" : "5",
+      "type" : "sort"
+    },
+    {
+      "id": "step5",
+      "question": "Сопоставьте дату и праздник",
+      "answers": [
+        {
+          "id": "five1-1",
+          "text": "8 марта"
+        },
+        {
+          "id": "five1-2",
+          "text": "31 декабря"
+        },
+        {
+          "id": "five1-3",
+          "text": "1 сентября"
+        },
+        {
+          "id": "five1-4",
+          "text": "19 декабря"
+        },
+        {
+          "id": "five1-5",
+          "text": "9 мая"
+        },
+        {
+          "id": "five1-6",
+          "text": "31 марта"
+        }
+      ],
+      "rels": [
+        {
+          "id": "five2-1",
+          "text": "День победы"
+        },
+        {
+          "id": "five2-2",
+          "text": "Международный женский день"
+        },
+        {
+          "id": "five2-3",
+          "text": "Мой день рождения"
+        },
+        {
+          "id": "five2-4",
+          "text": "День знаний"
+        },
+        {
+          "id": "five2-5",
+          "text": "День Святого Николая"
+        },
+        {
+          "id": "five2-6",
+          "text": "Новый год"
+        }
+      ],
+      "correct": [
+        ["five1-1", "five2-2"],
+        ["five1-2", "five2-6"],
+        ["five1-3", "five2-4"],
+        ["five1-4", "five2-5"],
+        ["five1-5", "five2-1"],
+        ["five1-6", "five2-3"]
+      ],
+      "points" : "4",
+      "type" : "relation"
+    }
+  ]
+}

@@ -1,14 +1,11 @@
 import {Component} from '../../../../classes/Component'
 import {getData, onClickAnsw} from './desk.worker'
 
-// import {toLS} from './desk.worker'
-
 export class Desk extends Component {
     constructor() {
         super()
         this.name = 'desk'
         this.btnId = 'questionButton'
-        this.dom = {}
     }
 
     async getComponent() {

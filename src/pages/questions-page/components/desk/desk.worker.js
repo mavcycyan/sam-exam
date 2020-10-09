@@ -48,10 +48,9 @@ export function toLS(answersObj) {
 }
 
 export function validator(nodelist, jsonValid, $button) {
-    jsonValid = JSON.parse(jsonValid)
     nodelist.forEach(($el, itt) => {
         if ($el.checked) {
-            $el.className = (jsonValid.isCorrect == 'true')? 'green' : 'red'
+            $el.className = (jsonValid.isCorrect)? 'green' : 'red'
         } else {
             $el.className = (jsonValid.correct == $el.value)
                 ? 'green'
@@ -73,9 +72,18 @@ export function onClickAnsw() {
         const questId = answChk.getAttribute('data-questionid')
         const answId = answChk.value
         setData(questId, answId).then( data => {
-            const json = data
+            const json = JSON.parse(data)
             const answ = document.querySelectorAll('.js-answRad')
             validator(answ, json, $answBtn)
+            const objToLs = {
+                question_id: questId,
+                chosen_answer_id: answId,
+                isCorrect: (json.isCorrect) ? json.isCorrect : false
+            }
+            if (json.correct) {
+                objToLs.correct = json.correct
+            }
+            toLS(objToLs)
         })
     } else {
         alert('Выберите нужный ответ!')

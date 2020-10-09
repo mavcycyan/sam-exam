@@ -1,9 +1,25 @@
-import {preloader} from '../helpers'
+import {preloader} from '../helpers/helpers'
+import {Component} from './Component'
 
 export class Page {
     constructor() {
-        this.path = './components/'
     }
+
+    init() {
+        const component = new Component()
+        component.init()
+    }
+
+    async rendering(pageClass) {
+        const layout = await this.getLayout(pageClass)
+        return new Promise(resolve => {
+            document.getElementById('app').append(layout)
+            this.init()
+            resolve()
+        })
+    }
+
+    destroy() {}
 
     getComponents() {
         return ''

@@ -3,6 +3,9 @@ export class Component {
         this.component = ''
     }
 
+    init() {
+    }
+
     getComponent() {
         return new Promise(resolve => {
             resolve(this.component)

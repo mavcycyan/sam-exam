@@ -8,6 +8,12 @@ export class QuestionsPage extends Page {
         super()
     }
 
+    init() {
+        super.init()
+        const component = new Desk()
+        component.init()
+    }
+
     async getComponents() {
         super.getComponents()
         const header = new Header

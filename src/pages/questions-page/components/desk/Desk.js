@@ -6,13 +6,14 @@ export class Desk extends Component {
         super()
         this.name = 'desk'
         this.btnId = 'questionButton'
+        this.answBtn = {}
     }
 
     async getComponent() {
         super.getComponent()
         this.component = await this.getServerData()
         return new Promise(resolve => {
-            resolve(this.component)
+            resolve({component: this.component, init: this.init})
         })
     }
 
@@ -22,21 +23,18 @@ export class Desk extends Component {
         $answBtn.addEventListener('click', onClickAnsw, false)
     }
 
+    destroy() {
+        const $answBtn = document.getElementById('questionButton')
+        $answBtn.removeEventListener('click', onClickAnsw, false)
+    }
+
     async getServerData() {
         const locData = {id: 1}
         const data = await getData(locData.id)
         const deskData = JSON.parse(data)
         const deskAnswers = JSON.parse(deskData.answers)
         let deskAnswersHtml = ''
-        // const deskAnswersDom = []
         deskAnswers.forEach((answer, itt) => {
-            // deskAnswersDom[itt] = document.createElement('input')
-            // deskAnswersDom[itt].id = `q${itt}`
-            // deskAnswersDom[itt].class = 'js-answRad'
-            // deskAnswersDom[itt].value = answer.id
-            // deskAnswersDom[itt].name = 'answer'
-            // deskAnswersDom[itt].type = 'radio'
-            // deskAnswersDom[itt].setAttribute('data-questionid', deskData.id)
             deskAnswersHtml += `
                     <div class="answer">
                         <input id="q${itt}" type="radio"
@@ -50,6 +48,13 @@ export class Desk extends Component {
                 `
         })
 
+        const $answBtn = document.createElement('button')
+        $answBtn.id = this.btnId
+        $answBtn.className = 'btn'
+        $answBtn.setAttribute('data-type', 'submit')
+        $answBtn.innerHTML = 'Подтвердить'
+
+
         return `
                 <div id="${this.name}" class="desk">
                     <div class="desk-quastion">${deskData.question}</div>
@@ -57,11 +62,7 @@ export class Desk extends Component {
                         ${deskAnswersHtml}
                     </div>
                 </div>
-                <button 
-                    id="${this.btnId}" 
-                    class="btn" 
-                    data-type="submit"
-                >Подтвердить</button>
+                ${$answBtn.outerHTML}
             `
     }
 }

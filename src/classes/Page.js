@@ -1,13 +1,14 @@
 import {preloader} from '../helpers/helpers'
-import {Component} from './Component'
 
 export class Page {
     constructor() {
+        this.componentInit = []
     }
 
     init() {
-        const component = new Component()
-        component.init()
+        this.componentInit.forEach(compInit => {
+            compInit()
+        })
     }
 
     async rendering(pageClass) {

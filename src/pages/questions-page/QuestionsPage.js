@@ -8,22 +8,24 @@ export class QuestionsPage extends Page {
         super()
     }
 
-    init() {
-        super.init()
-        const component = new Desk()
-        component.init()
-    }
-
     async getComponents() {
         super.getComponents()
-        const header = new Header
-        const navbar = new Navbar
-        const desk = new Desk
 
-        const headerComponent = await header.getComponent()
-        const navbarComponent = await navbar.getComponent()
-        const deskComponent = await desk.getComponent()
+        const components = []
+        components[0] = new Header
+        components[1] = new Navbar
+        components[2] = new Desk
 
-        return headerComponent+''+navbarComponent+''+deskComponent
+        const headerComponent = await components[0].getComponent()
+        const navbarComponent = await components[1].getComponent()
+        const deskComponent = await components[2].getComponent()
+
+        components.forEach(component => {
+            this.componentInit.push(component.init)
+        })
+
+        return headerComponent.component+''+
+            navbarComponent.component+''+
+            deskComponent.component
     }
 }

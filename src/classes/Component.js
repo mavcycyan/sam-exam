@@ -6,9 +6,12 @@ export class Component {
     init() {
     }
 
+    destroy() {
+    }
+
     getComponent() {
         return new Promise(resolve => {
-            resolve(this.component)
+            resolve({component: this.component, init: this.init})
         })
     }
 }

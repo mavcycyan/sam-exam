@@ -1,4 +1,4 @@
-import {preloader} from '../helpers/helpers'
+import {preloader} from '../helpers/preloader'
 
 export class Page {
     constructor() {

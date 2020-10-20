@@ -4,19 +4,10 @@ export function getTemplates(responseStr, name, btnId) {
     let deskAnswersHtml = ''
     switch (deskData.type) {
     case 'single':
-        deskAnswers.forEach((answer, itt) => {
-            deskAnswersHtml += `
-                    <div class="answer">
-                        <input id="q${itt}" type="radio"
-                             value="${answer.id}" name="answer"
-                             data-questionid="${deskData.id}"
-                             class="js-answRad">
-                        <label for="q${itt}">
-                            <span>${answer.text}</span>
-                        </label>
-                    </div>
-                `
-        })
+        deskAnswersHtml = getSingle(deskAnswers, deskData)
+        break;
+    case 'multiple':
+        deskAnswersHtml = getMultiple(deskAnswers, deskData)
         break;
     }
 
@@ -36,4 +27,40 @@ export function getTemplates(responseStr, name, btnId) {
                 </div>
                 ${$answBtn.outerHTML}
             `
+}
+
+function getSingle(deskAnswers, deskData) {
+    let HTML = ''
+    deskAnswers.forEach((answer, itt) => {
+        HTML += `
+                    <div class="answer">
+                        <input id="q${itt}" type="radio"
+                             value="${answer.id}" name="answer"
+                             data-questionid="${deskData.id}"
+                             class="js-answRad">
+                        <label for="q${itt}">
+                            <span>${answer.text}</span>
+                        </label>
+                    </div>
+                `
+    })
+    return HTML
+}
+
+function getMultiple(deskAnswers, deskData) {
+    let HTML = ''
+    deskAnswers.forEach((answer, itt) => {
+        HTML += `
+                    <div class="answer">
+                        <input id="q${itt}" type="checkbox"
+                             value="${answer.id}" name="answer[]"
+                             data-questionid="${deskData.id}"
+                             class="js-answRad">
+                        <label for="q${itt}" class="chb">
+                            <span>${answer.text}</span>
+                        </label>
+                    </div>
+                `
+    })
+    return HTML
 }

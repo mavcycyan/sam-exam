@@ -93,7 +93,6 @@ export function onClickAnsw() {
         break;
     }
 }
-
 export function nextPrev(param, chkId) {
     const $answBtn = document.getElementById('questionButton')
     preloader('init')
@@ -108,11 +107,49 @@ export function nextPrev(param, chkId) {
         case 'next':
             break;
         }
-    }).catch(() => {
+    }).catch((e) => {
         if (param == 'next') {
             alert('done')
         }
+        console.log(e)
     }).finally(() => {
         preloader('destroy')
     })
+}
+
+export function onClickSort() {
+    // event.target.closest('.js-sortChk')
+    if (document.querySelectorAll('.sortChkActive').length > 0) {
+        event.target.closest('.js-sortChk').classList.add('sortChkActive')
+        const $sortActive = document.querySelectorAll('.sortChkActive')
+        const $sort1 = $sortActive[0]
+        const $sort2 = $sortActive[1]
+        const $sortContainer = $sort1.parentNode
+        const $cloneSort1 = $sort1.cloneNode(true)
+        const $cloneSort2 = $sort2.cloneNode(true)
+        $sortContainer.replaceChild($cloneSort1, $sort2)
+        $sortContainer.replaceChild($cloneSort2, $sort1)
+        const $newSortActive = [$cloneSort1, $cloneSort2]
+        $newSortActive.forEach($el => {
+            $el.classList.add('sortChkAlert')
+            $el.classList.remove('sortChkActive')
+        })
+
+        // Deleting sort event listeners and reinitializing them
+        const $sortChks = document.querySelectorAll('.js-sortChk')
+        if ($sortChks.length) {
+            $sortChks.forEach($el => {
+                $el.addEventListener('click', onClickSort, false)
+            })
+        }
+        // Deleting sort event listeners and reinitializing them END
+
+        setTimeout(function() {
+            $newSortActive.forEach($el => {
+                $el.classList.remove('sortChkAlert')
+            })
+        }, 500);
+    } else {
+        event.target.closest('.js-sortChk').classList.add('sortChkActive')
+    }
 }

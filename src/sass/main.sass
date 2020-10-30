@@ -84,6 +84,9 @@ h1
                 margin-right: 10px
                 cursor: pointer
                 content: ''
+            &.sort
+                &:before
+                    display: none
         span
             font-size: 18px
         input
@@ -121,7 +124,16 @@ h1
         .chb
             &:before
                 border-radius: 0px
-
+        &.sortChkActive
+            label
+                background: silver
+                color: #fff
+                border-color: silver
+        &.sortChkAlert
+            label
+                background: #187fb0
+                color: #fff
+                border-color: #187fb0
 .btn
     transition: all .1s ease-out
     border-width: 3px

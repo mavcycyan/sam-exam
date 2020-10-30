@@ -9,6 +9,9 @@ export function getTemplates(responseStr, name, btnId) {
     case 'multiple':
         deskAnswersHtml = getMultiple(deskAnswers, deskData)
         break;
+    case 'sort':
+        deskAnswersHtml = getSort(deskAnswers, deskData)
+        break;
     }
 
     const $answBtn = document.createElement('button')
@@ -57,6 +60,26 @@ function getMultiple(deskAnswers, deskData) {
                              data-questionid="${deskData.id}"
                              class="js-answRad">
                         <label for="q${itt}" class="chb">
+                            <span>${answer.text}</span>
+                        </label>
+                    </div>
+                `
+    })
+    return HTML
+}
+
+function getSort(deskAnswers, deskData) {
+    let HTML = ''
+    deskAnswers.forEach((answer, itt) => {
+        HTML += `
+                    <div class="answer js-sortChk">
+                        <input id="q${itt}" type="checkbox"
+                             value="${answer.id}" name="answer"
+                             data-questionid="${deskData.id}"
+                             class="js-answRad"
+                             checked
+                             disabled>
+                        <label for="q${itt}" class="sort">
                             <span>${answer.text}</span>
                         </label>
                     </div>

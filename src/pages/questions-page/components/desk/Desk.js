@@ -1,5 +1,5 @@
 import {Component} from '../../../../classes/Component'
-import {getData, onClickAnsw} from './desk.worker'
+import {getData, onClickAnsw, onClickSort} from './desk.worker'
 import {getTemplates} from './desk.templates'
 
 export class Desk extends Component {
@@ -21,6 +21,12 @@ export class Desk extends Component {
         super.init()
         const $answBtn = document.getElementById('questionButton')
         $answBtn.addEventListener('click', onClickAnsw, false)
+        const $sortChks = document.querySelectorAll('.js-sortChk')
+        if ($sortChks.length) {
+            $sortChks.forEach($el => {
+                $el.addEventListener('click', onClickSort, false)
+            })
+        }
     }
 
     destroy() {

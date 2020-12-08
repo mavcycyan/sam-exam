@@ -38,7 +38,9 @@ export function setData(questionID, answerID) {
         request.onerror = function() {
             console.log('Ошибка ' + this.status)
         }
-        request.send(`questionID=${questionID}&answerID=${answerIdPost}`)
+        request.send(
+            `questionID=${questionID}&answerID=${answerIdPost}`
+        )
     })
 }
 
@@ -67,7 +69,7 @@ export function onClickAnsw() {
                 questId = answ.getAttribute('data-questionid')
                 answId[itt] = answ.value
             })
-            console.log(questId, answId)
+
             setData(questId, answId).then( data => {
                 const json = JSON.parse(data)
                 const answ = document.querySelectorAll('.js-answRad')
@@ -80,8 +82,7 @@ export function onClickAnsw() {
                 if (json.correct) {
                     objToLs.correct = json.correct
                 }
-                console.log(data)
-                console.log(answChk)
+
                 toLS(objToLs)
             })
         } else {
@@ -151,5 +152,12 @@ export function onClickSort() {
         }, 500);
     } else {
         event.target.closest('.js-sortChk').classList.add('sortChkActive')
+    }
+}
+
+export function selectToCheckbox() {
+    if (document.querySelectorAll('.js-relSel').length > 0) {
+        const $parEl = event.target.closest('div')
+        $parEl.querySelector('.js-forRelSel').value = event.target.value
     }
 }

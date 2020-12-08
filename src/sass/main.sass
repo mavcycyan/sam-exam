@@ -61,79 +61,96 @@ h1
         font-weight: 700
         margin-bottom: 25px
     &-asnswers
-    .answer
-        color: #888
-        margin-bottom: 10px
-        label
-            display: flex
-            flex-wrap: wrap
+        .answer
+            color: #888
             margin-bottom: 10px
-            align-items: center
-            position: relative
-            cursor: pointer
-            padding: 11px 15px
-            border: 1px solid silver
-            border-radius: 5px
-            &:before
-                width: 13px
-                height: 13px
-                border-radius: 50%
-                border: 3px solid #fff
-                box-shadow: 0px 0px 0px 2px #000
-                background: #fff
-                margin-right: 10px
+            label
+                display: flex
+                flex-wrap: wrap
+                margin-bottom: 10px
+                align-items: center
+                position: relative
                 cursor: pointer
-                content: ''
-            &.sort
+                padding: 11px 15px
+                border: 1px solid silver
+                border-radius: 5px
                 &:before
-                    display: none
-        span
-            font-size: 18px
-        input
-            display: none
-            &:checked
-                & + label:before
-                    background: #000
-            &.green
-                & + label
-                    color: #fff
-                    border-color: #0f0
-                    background-color: #0f0
+                    width: 13px
+                    height: 13px
+                    border-radius: 50%
+                    border: 3px solid #fff
+                    box-shadow: 0px 0px 0px 2px #000
+                    background: #fff
+                    margin-right: 10px
+                    cursor: pointer
+                    content: ''
+                &.sort
                     &:before
-                        border-color: #0f0
-                        box-shadow: 0px 0px 0px 2px #fff
-                        background: #fff
-            &.red
-                & + label
-                    color: #fff
-                    border-color: #f00
-                    background-color: #f00
-                    &:before
-                        border-color: #f00
-                        box-shadow: 0px 0px 0px 2px #fff
-                        background: #fff
-            &.gray
-                & + label
-                    color: #000
-                    border-color: silver
-                    background-color: silver
-                    &:before
-                        border-color: silver
-                        box-shadow: 0px 0px 0px 2px #000
+                        display: none
+            span
+                font-size: 18px
+            input
+                display: none
+                &:checked
+                    & + label:before
                         background: #000
-        .chb
-            &:before
-                border-radius: 0px
-        &.sortChkActive
-            label
-                background: silver
-                color: #fff
-                border-color: silver
-        &.sortChkAlert
-            label
-                background: #187fb0
-                color: #fff
-                border-color: #187fb0
+                &.green
+                    & + label
+                        color: #fff
+                        border-color: #0f0
+                        background-color: #0f0
+                        &:before
+                            border-color: #0f0
+                            box-shadow: 0px 0px 0px 2px #fff
+                            background: #fff
+                &.red
+                    & + label
+                        color: #fff
+                        border-color: #f00
+                        background-color: #f00
+                        &:before
+                            border-color: #f00
+                            box-shadow: 0px 0px 0px 2px #fff
+                            background: #fff
+                &.gray
+                    & + label
+                        color: #000
+                        border-color: silver
+                        background-color: silver
+                        &:before
+                            border-color: silver
+                            box-shadow: 0px 0px 0px 2px #000
+                            background: #000
+            .chb
+                &:before
+                    border-radius: 0px
+            &.sortChkActive
+                label
+                    background: silver
+                    color: #fff
+                    border-color: silver
+            &.sortChkAlert
+                label
+                    background: #187fb0
+                    color: #fff
+                    border-color: #187fb0
+            &-row
+                display: flex
+                flex-wrap: wrap
+                .answer
+                    padding-right: 15px
+                    flex: 1
+            &-rel
+                select
+                    display: flex
+                    flex-wrap: wrap
+                    margin-bottom: 10px
+                    align-items: center
+                    position: relative
+                    cursor: pointer
+                    padding: 11px 15px
+                    border: 1px solid silver
+                    border-radius: 5px
 .btn
     transition: all .1s ease-out
     border-width: 3px

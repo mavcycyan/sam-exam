@@ -9,6 +9,9 @@ export function validator(nodelist, jsonValid, $button) {
     case 'sort':
         validSort(nodelist, jsonValid)
         break;
+    case 'relation':
+        validRel(nodelist, jsonValid)
+        break;
     }
     $button.setAttribute('data-type', 'next')
     $button.innerHTML = 'Далее'
@@ -54,6 +57,25 @@ function validMultiple(nodelist, jsonValid) {
     })
 }
 function validSort(nodelist, jsonValid) {
+    nodelist.forEach(($el, itt) => {
+        let isCorrect
+        if (jsonValid.correct) {
+            if ($el.value == jsonValid.correct[itt]) {
+                isCorrect = true
+            } else {
+                isCorrect = false
+            }
+        } else {
+            isCorrect = true
+        }
+
+        const validStr = (isCorrect)? 'green' : 'red'
+        $el.classList.add(validStr)
+
+        $el.disabled = true
+    })
+}
+function validRel(nodelist, jsonValid) {
     nodelist.forEach(($el, itt) => {
         let isCorrect
         if (jsonValid.correct) {

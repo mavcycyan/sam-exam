@@ -1,7 +1,9 @@
 export function getTemplates(responseStr, name, btnId) {
     const deskData = JSON.parse(responseStr)
     const deskAnswers = JSON.parse(deskData.answers)
+
     let deskAnswersHtml = ''
+    // let deskRels = ''
     switch (deskData.type) {
     case 'single':
         deskAnswersHtml = getSingle(deskAnswers, deskData)
@@ -11,6 +13,9 @@ export function getTemplates(responseStr, name, btnId) {
         break;
     case 'sort':
         deskAnswersHtml = getSort(deskAnswers, deskData)
+        break;
+    case 'relation':
+        deskAnswersHtml = getRelation(deskAnswers, deskData)
         break;
     }
 
@@ -82,6 +87,43 @@ function getSort(deskAnswers, deskData) {
                         <label for="q${itt}" class="sort">
                             <span>${answer.text}</span>
                         </label>
+                    </div>
+                `
+    })
+    return HTML
+}
+
+function getRelation(deskAnswers, deskData) {
+    let HTML = ''
+    let relationList = ''
+    const deskRelative = JSON.parse(deskData.relative)
+    deskRelative.forEach((answer, itt) => {
+        relationList += `
+                    <option value="${answer.id}">${answer.text}</option>
+                `
+    })
+    deskAnswers.forEach((answer, itt) => {
+        HTML += `
+                    <div class="answer-row">
+                        <div class="answer">
+                            <input id="q${itt}" type="checkbox"
+                                 checked
+                                 disabled>
+                            <label for="q${itt}" class="sort">
+                                <span>${answer.text}</span>
+                            </label>
+                        </div>
+                        <div class="answer-rel">
+                            <input id="q${itt}" type="checkbox"
+                                 value="${deskRelative[0].id}" name="answer"
+                                 data-questionid="${deskData.id}"
+                                 class="js-answRad js-forRelSel" 
+                                 style="display: none;"
+                                 checked>
+                            <select class="js-relSel">
+                                ${relationList}
+                            </select>
+                        </div>
                     </div>
                 `
     })

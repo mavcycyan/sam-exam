@@ -1,5 +1,6 @@
 import {Component} from '../../../../classes/Component'
 import {getData, onClickAnsw, onClickSort} from './desk.worker'
+import {selectToCheckbox} from './desk.worker'
 import {getTemplates} from './desk.templates'
 
 export class Desk extends Component {
@@ -22,9 +23,15 @@ export class Desk extends Component {
         const $answBtn = document.getElementById('questionButton')
         $answBtn.addEventListener('click', onClickAnsw, false)
         const $sortChks = document.querySelectorAll('.js-sortChk')
+        const $selInput = document.querySelectorAll('.js-relSel')
         if ($sortChks.length) {
             $sortChks.forEach($el => {
                 $el.addEventListener('click', onClickSort, false)
+            })
+        }
+        if ($selInput.length) {
+            $selInput.forEach($el => {
+                $el.addEventListener('change', selectToCheckbox, false)
             })
         }
     }

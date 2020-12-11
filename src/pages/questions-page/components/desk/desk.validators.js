@@ -77,6 +77,8 @@ function validSort(nodelist, jsonValid) {
 }
 function validRel(nodelist, jsonValid) {
     nodelist.forEach(($el, itt) => {
+        const $parEl = $el.closest('div')
+        const $selEl = $parEl.querySelector('.js-relSel')
         let isCorrect
         if (jsonValid.correct) {
             if ($el.value == jsonValid.correct[itt]) {
@@ -89,8 +91,8 @@ function validRel(nodelist, jsonValid) {
         }
 
         const validStr = (isCorrect)? 'green' : 'red'
-        $el.classList.add(validStr)
+        $selEl.classList.add(validStr)
 
-        $el.disabled = true
+        $selEl.disabled = true
     })
 }

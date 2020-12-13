@@ -1,5 +1,5 @@
 import {Component} from '../../../../classes/Component'
-import {getData, onClickAnsw, onClickSort} from './desk.worker'
+import {fromLS, getData, onClickAnsw, onClickSort} from './desk.worker'
 import {selectToCheckbox} from './desk.worker'
 import {getTemplates} from './desk.templates'
 
@@ -42,7 +42,8 @@ export class Desk extends Component {
     }
 
     async getServerData() {
-        const locData = {id: 1}
+        const startId = (fromLS()) ? +fromLS()+1 : 1
+        const locData = {id: startId}
         const data = await getData(locData.id)
 
         return getTemplates(data, this.name, this.btnId)

@@ -57,6 +57,15 @@ export function toLS(answersObj) {
     localStorage.setItem('answers', JSON.stringify(lStor))
 }
 
+export function fromLS() {
+    if (localStorage.getItem('answers')) {
+        const lStor = JSON.parse(localStorage.getItem('answers'))
+
+        return lStor[lStor.length-1].question_id
+    }
+    return null
+}
+
 export function onClickAnsw() {
     const $answBtn = document.getElementById('questionButton')
     const answChk = document.querySelectorAll('.js-answRad:checked')
@@ -119,7 +128,6 @@ export function nextPrev(param, chkId) {
 }
 
 export function onClickSort() {
-    // event.target.closest('.js-sortChk')
     if (document.querySelectorAll('.sortChkActive').length > 0) {
         event.target.closest('.js-sortChk').classList.add('sortChkActive')
         const $sortActive = document.querySelectorAll('.sortChkActive')

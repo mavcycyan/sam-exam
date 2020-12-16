@@ -4,6 +4,8 @@ export class Header extends Component {
     constructor() {
         super()
         this.component =
-            `<h1>Добро пожаловать в экзаменационный опросник!</h1>`
+            `<div id="header">
+                <h1>Добро пожаловать в экзаменационный опросник!</h1>
+            </div>`
     }
 }

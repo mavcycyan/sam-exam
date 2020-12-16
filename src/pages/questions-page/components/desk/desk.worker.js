@@ -1,13 +1,28 @@
 import {gettingDataPath, settingDataPath} from '../../../../configs'
-import {getTemplates} from './desk.templates'
+import {gettingResultsSmall} from '../../../../configs'
+import {getTemplates, getTemplateCongrats} from './desk.templates'
 import {Desk} from './Desk'
 import {preloader} from '../../../../helpers/preloader'
 import {validator} from './desk.validators'
 
-export function getData(questionID = 1) {
+export function getData(questionID = 1, allQuestions = null) {
     return new Promise(resolve => {
         const request = new XMLHttpRequest()
-        request.open('GET', gettingDataPath + `?id=${questionID}`, false)
+        let allStr = ''
+        if (allQuestions) {
+            allQuestions.forEach((question, itt) => {
+                if (itt != 0) {
+                    allStr += ','
+                }
+                allStr += question
+            })
+        }
+        allStr = '&all='+allStr
+        request.open(
+            'GET',
+            gettingDataPath + `?id=${questionID}${allStr}`,
+            false
+        )
         request.onload = function() {
             resolve(this.responseText)
         }
@@ -66,6 +81,17 @@ export function fromLS() {
     return null
 }
 
+export function fromLsAll() {
+    if (localStorage.getItem('answers')) {
+        const lStor = JSON.parse(localStorage.getItem('answers'))
+        const lStorIds = lStor.map(item => {
+            return item.question_id
+        })
+        return lStorIds
+    }
+    return null
+}
+
 export function onClickAnsw() {
     const $answBtn = document.getElementById('questionButton')
     const answChk = document.querySelectorAll('.js-answRad:checked')
@@ -106,20 +132,25 @@ export function onClickAnsw() {
 export function nextPrev(param, chkId) {
     const $answBtn = document.getElementById('questionButton')
     preloader('init')
-    getData(chkId).then(data => {
-        const templ = getTemplates(data, 'desk', 'questionButton')
-        const templDom = document.getElementById('desk')
-        templDom.outerHTML = templ
-        $answBtn.remove()
-        const desk = new Desk()
-        desk.init()
-        switch (param) {
-        case 'next':
-            break;
+    getData(chkId, fromLsAll()).then(data => {
+        const check = JSON.parse(data)
+        if (check.finish === true) {
+            getFinish()
+        } else {
+            const templ = getTemplates(data, 'desk', 'questionButton')
+            const templDom = document.getElementById('desk')
+            templDom.outerHTML = templ
+            $answBtn.remove()
+            const desk = new Desk()
+            desk.init()
+            switch (param) {
+            case 'next':
+                break;
+            }
         }
     }).catch((e) => {
         if (param == 'next') {
-            alert('done')
+            alert('error')
         }
         console.log(e)
     }).finally(() => {
@@ -168,4 +199,47 @@ export function selectToCheckbox() {
         const $parEl = event.target.closest('div')
         $parEl.querySelector('.js-forRelSel').value = event.target.value
     }
+}
+
+async function getFinish() {
+    const results = await getResults()
+
+    const templ = getTemplateCongrats(results)
+    const templDom = document.getElementById('desk')
+    templDom.outerHTML = templ
+    document.getElementById('header').remove()
+    document.getElementById('navbar').remove()
+    document.getElementById('questionButton').remove()
+}
+
+function getResults() {
+    return new Promise(resolve => {
+        const request = new XMLHttpRequest()
+        const lStor = JSON.parse(localStorage.getItem('answers'))
+        const sortStor = []
+        lStor.forEach(element => {
+            sortStor[element.question_id-1] = element.isCorrect
+        })
+        let allStr = ''
+
+        sortStor.forEach((res, itt) => {
+            if (itt != 0) {
+                allStr += ','
+            }
+            allStr += `${itt+1}-${res}`
+        })
+
+        request.open(
+            'GET',
+            gettingResultsSmall + `?questions=${allStr}`,
+            false
+        )
+        request.onload = function() {
+            resolve(this.responseText)
+        }
+        request.onerror = function() {
+            console.log('Ошибка ' + this.status)
+        }
+        request.send()
+    })
 }

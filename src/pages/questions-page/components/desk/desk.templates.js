@@ -1,9 +1,9 @@
 export function getTemplates(responseStr, name, btnId) {
     const deskData = JSON.parse(responseStr)
-    const deskAnswers = JSON.parse(deskData.answers)
+    const deskAnswers = (deskData.answers) ? JSON.parse(deskData.answers) : ''
 
     let deskAnswersHtml = ''
-    // let deskRels = ''
+
     switch (deskData.type) {
     case 'single':
         deskAnswersHtml = getSingle(deskAnswers, deskData)
@@ -24,7 +24,6 @@ export function getTemplates(responseStr, name, btnId) {
     $answBtn.className = 'btn'
     $answBtn.setAttribute('data-type', 'submit')
     $answBtn.innerHTML = 'Подтвердить'
-
 
     return `
                 <div id="${name}" class="desk">
@@ -127,5 +126,30 @@ function getRelation(deskAnswers, deskData) {
                     </div>
                 `
     })
+    return HTML
+}
+
+export function getTemplateCongrats(response) {
+    const results = JSON.parse(response)
+    const title = (results.res == 'passed') ?
+        'Поздравляем!' :
+        'Сожалеем...'
+    const text = (results.res == 'passed') ?
+        'Вы сдали экзамен с оценкой' :
+        'Вы провалили экзамен с оценкой'
+
+    const HTML = `
+        <div class="congrats">
+            <div class="congrats-ttl">
+                ${title}
+            </div>
+            <div class="congrats-txt">
+                ${text} ${results.sum} из 15
+            </div>
+            <div class="congrats-link">
+                <a href="#">Просмотреть результат</a>
+            </div>
+        </div>
+    `
     return HTML
 }
